@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yarimawa Travel & Tours</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+        }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(20, 60, 50, 0.95);
+            padding: 16px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(8px);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: #f4a261;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        nav ul li a {
+            color: #ddd;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #f4a261;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: #fff;
+            border-radius: 2px;
+        }
+
+        /* HERO */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, rgba(10, 40, 35, 0.7), rgba(20, 60, 50, 0.5)),
+                        url('https://images.unsplash.com/photo-1507525428034-b727cf2a6a8f?w=1600') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+            padding: 0 20px;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .hero-content h1 span {
+            color: #f4a261;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            max-width: 550px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 36px;
+            background: #f4a261;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(244, 162, 97, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #fff;
+            margin-left: 12px;
+        }
+
+        .btn-outline:hover {
+            background: #fff;
+            color: #143c32;
+            box-shadow: 0 8px 25px rgba(255,255,255,0.2);
+        }
+
+        /* SECTIONS */
+        section {
+            padding: 80px 40px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 2.2rem;
+            color: #143c32;
+            margin-bottom: 10px;
+        }
+
+        .section-title p {
+            color: #777;
+            font-size: 1.05rem;
+        }
+
+        .section-title .underline {
+            width: 60px;
+            height: 4px;
+            background: #f4a261;
+            margin: 14px auto 0;
+            border-radius: 2px;
+        }
+
+        /* ABOUT */
+        #about {
+            background: #f9f9f9;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            max-width: 1000px;
+            margin: 0 auto;
+            align-items: center;
+        }
+
+        .about-img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .about-text h3 {
+            font-size: 1.6rem;
+            color: #143c32;
+            margin-bottom: 14px;
+        }
+
+        .about-text p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 14px;
+        }
+
+        /* SERVICES */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 36px 28px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.12);
+        }
+
+        .service-icon {
+            font-size: 2.8rem;
+            margin-bottom: 18px;
+        }
+
+        .service-card h3 {
+            color: #143c32;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .service-card p {
+            color: #888;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* DESTINATIONS */
+        #destinations {
+            background: #f9f9f9;
+        }
+
+        .dest-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .dest-card {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            height: 280px;
+            cursor: pointer;
+        }
+
+        .dest-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .dest-card:hover img {
+            transform: scale(1.08);
+        }
+
+        .dest-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            padding: 24px;
+            color: #fff;
+        }
+
+        .dest-overlay h3 {
+            font-size: 1.2rem;
+            margin-bottom: 4px;
+        }
+
+        .dest-overlay p {
+            font-size: 0.85rem;
+            opacity: 0.85;
+        }
+
+        /* CONTACT */
+        .contact-wrapper {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-wrapper form {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .contact-wrapper input,
+        .contact-wrapper textarea {
+            padding: 14px 18px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s;
+            outline: none;
+        }
+
+        .contact-wrapper input:focus,
+        .contact-wrapper textarea:focus {
+            border-color: #f4a261;
+        }
+
+        .contact-wrapper textarea {
+            height: 130px;
+            resize: vertical;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            text-align: center;
+        }
+
+        .contact-item .icon {
+            font-size: 1.6rem;
+            margin-bottom: 8px;
+        }
+
+        .contact-item p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #143c32;
+            color: #aaa;
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 0.9rem;
+        }
+
+        footer span {
+            color: #f4a261;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(20, 60, 50, 0.98);
+                flex-direction: column;
+                padding: 20px 40px;
+                gap: 18px;
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            .hero-content h1 {
+                font-size: 2.4rem;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .services-grid,
+            .dest-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+            }
+
+            .btn-outline {
+                margin-left: 0;
+                margin-top: 10px;
+            }
+
+            section {
+                padding: 60px 20px;
+            }
+        }
+        /* --- ADD THIS TO YOUR EXISTING CSS --- */
+
+        /* Hero Slider Styles */
+        .hero {
+            position: relative;
+            background: #143c32; /* Fallback color */
+            overflow: hidden;
+        }
+
+        .hero-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            z-index: 1;
+        }
+
+        .hero-slide.active {
+            opacity: 1;
+        }
+
+        .hero-slide::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4); /* Dark overlay */
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2; /* Ensures text is above slides */
+        }
+
+        /* Destination Slider Styles */
+        .dest-slider-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+            border-radius: 16px;
+        }
+
+        .dest-slider-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .dest-card {
+            min-width: 100%; /* Shows 1 slide at a time */
+            height: 350px;
+        }
+
+        /* Navigation Arrows for Destinations */
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: #143c32;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+
+        .slider-btn:hover {
+            background: #fff;
+        }
+
+        .prev-btn { left: 10px; }
+        .next-btn { right: 10px; }
+
+        /* Responsive tweak for dest slider on mobile */
+        @media (max-width: 768px) {
+            .dest-card {
+                height: 250px;
+            }
+        }
+
+
+    </style>
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav>
+        <div class="logo">Yarimawa <span>Travel</span></div>
+        <button class="menu-toggle" onclick="document.querySelector('nav ul').classList.toggle('active')">
+            <span></span><span></span><span></span>
+        </button>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#destinations">Destinations</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- HERO -->
+      <!-- HERO WITH SLIDER -->
+    <section class="hero" id="home">
+        <!-- Slide 1 -->
+        <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-1507525428034-b727cf2a6a8f?w=1600');"></div>
+        <!-- Slide 2 -->
+        <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=1600');"></div>
+        <!-- Slide 3 -->
+        <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=1600');"></div>
+
+        <div class="hero-content">
+            <h1>Explore the World with<br><span>Yarimawa Tours</span></h1>
+            <p>Your trusted partner for unforgettable travel experiences across Africa, Arabia, and beyond.</p>
+            <a href="#destinations" class="btn">Explore Destinations</a>
+            <a href="#contact" class="btn btn-outline">Book Now</a>
+        </div>
+    </section>
+
+
+
+    <!-- ABOUT -->
+    <section id="about">
+        <div class="section-title">
+            <h2>About Us</h2>
+            <div class="underline"></div>
+        </div>
+        <div class="about-grid">
+            <img src="https://images.unsplash.com/photo-1488646953014-85cb45e314e2?w=800" alt="Travel" class="about-img">
+            <div class="about-text">
+                <h3>We Make Travel Simple & Memorable</h3>
+                <p>Yarimawa Travel & Tours is a full-service travel company dedicated to crafting seamless and enriching travel experiences. Whether you're planning a family vacation, a business trip, or an adventurous getaway — we've got you covered.</p>
+                <p>With years of experience and a passion for exploration, our team works tirelessly to ensure every journey is safe, comfortable, and truly unforgettable.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services">
+        <div class="section-title">
+            <h2>Our Services</h2>
+            <p>Everything you need for a perfect trip</p>
+            <div class="underline"></div>
+        </div>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">✈️</div>
+                <h3>Flight Booking</h3>
+                <p>Domestic and international flight reservations at the best rates.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🏨</div>
+                <h3>Hotel Reservations</h3>
+                <p>Handpicked accommodations that suit every budget and preference.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🗺️</div>
+                <h3>Guided Tours</h3>
+                <p>Expert-guided excursions to the most beautiful destinations.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🛂</div>
+                <h3>Visa Assistance</h3>
+                <p>Hassle-free visa processing and travel documentation support.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🚌</div>
+                <h3>Transport Services</h3>
+                <p>Airport pickups, city transfers, and private vehicle rentals.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">📋</div>
+                <h3>Custom Packages</h3>
+                <p>Tailor-made itineraries designed around your interests and needs.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- DESTINATIONS -->
+       <!-- DESTINATIONS SLIDER -->
+    <section id="destinations">
+        <div class="section-title">
+            <h2>Popular Destinations</h2>
+            <p>Discover places you'll love</p>
+            <div class="underline"></div>
+        </div>
+
+        <div class="dest-slider-container">
+            <button class="slider-btn prev-btn" onclick="moveDestSlider(-1)">&#10094;</button>
+            <button class="slider-btn next-btn" onclick="moveDestSlider(1)">&#10095;</button>
+            
+            <div class="dest-slider-track" id="destTrack">
+                <!-- Slide 1: Zanzibar -->
+                <div class="dest-card">
+                    <img src="https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=800" alt="Zanzibar" style="width:100%; height:100%; object-fit:cover;">
+                    <div class="dest-overlay">
+                        <h3>Zanzibar</h3>
+                        <p>Beaches & Culture</p>
+                    </div>
+                </div>
+                
+                <!-- Slide 2: Serengeti -->
+                <div class="dest-card">
+                    <img src="https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=800" alt="Serengeti" style="width:100%; height:100%; object-fit:cover;">
+                    <div class="dest-overlay">
+                        <h3>Serengeti</h3>
+                        <p>Safari Adventures</p>
+                    </div>
+                </div>
+
+                <!-- Slide 3: Cape Town -->
+                <div class="dest-card">
+                    <img src="https://images.unsplash.com/photo-1580060839134-75a5edca2e99?w=800" alt="Cape Town" style="width:100%; height:100%; object-fit:cover;">
+                    <div class="dest-overlay">
+                        <h3>Cape Town</h3>
+                        <p>Scenic Wonders</p>
+                    </div>
+                </div>
+
+                <!-- Slide 4: Saudi Arabia (NEW) -->
+                <div class="dest-card">
+                    <img src="https://images.unsplash.com/photo-1580828343064-fde4fc304b00?w=800" alt="Saudi Arabia" style="width:100%; height:100%; object-fit:cover;">
+                    <div class="dest-overlay">
+                        <h3>Saudi Arabia</h3>
+                        <p>History & Modernity</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- CONTACT -->
+    <section id="contact">
+        <div class="section-title">
+            <h2>Get In Touch</h2>
+            <p>Let us plan your next adventure</p>
+            <div class="underline"></div>
+        </div>
+        <div class="contact-wrapper">
+            <form onsubmit="event.preventDefault(); alert('Thank you! We will get back to you soon.');">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <input type="text" placeholder="Subject">
+                <textarea placeholder="Your Message"></textarea>
+                <button type="submit" class="btn" style="text-align:center;">Send Message</button>
+            </form>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="icon">📍</div>
+                    <p>Accra, Ghana</p>
+                </div>
+                <div class="contact-item">
+                    <div class="icon">📞</div>
+                    <p>+233 20 000 0000</p>
+                </div>
+                <div class="contact-item">
+                    <div class="icon">✉️</div>
+                    <p>info@yarimawatravel.com</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2025 <span>Yarimawa Travel & Tours</span>. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // --- Hero Slider Logic (Auto-fade) ---
+        const heroSlides = document.querySelectorAll('.hero-slide');
+        let currentHeroSlide = 0;
+
+        function changeHeroSlide() {
+            // Remove active class from current
+            heroSlides[currentHeroSlide].classList.remove('active');
+            
+            // Calculate next slide
+            currentHeroSlide = (currentHeroSlide + 1) % heroSlides.length;
+            
+            // Add active class to next
+            heroSlides[currentHeroSlide].classList.add('active');
+        }
+
+        // Change hero image every 5 seconds
+        setInterval(changeHeroSlide, 5000);
+
+
+        // --- Destination Slider Logic (Manual/Click) ---
+        const destTrack = document.getElementById('destTrack');
+        const destCards = document.querySelectorAll('.dest-card');
+        let currentDestIndex = 0;
+
+        function moveDestSlider(direction) {
+            currentDestIndex += direction;
+
+            // Loop back to start if at end
+            if (currentDestIndex < 0) {
+                currentDestIndex = destCards.length - 1;
+            } 
+            // Loop to start if at beginning
+            else if (currentDestIndex >= destCards.length) {
+                currentDestIndex = 0;
+            }
+
+            // Move the track
+            const offset = -currentDestIndex * 100;
+            destTrack.style.transform = `translateX(${offset}%)`;
+        }
+    </script>
+
+
+</body>
+</html>
